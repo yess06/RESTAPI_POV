@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Carbon\Carbon;
+use Dotenv\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -58,5 +59,29 @@ class AuthController extends Controller
         return response()->json([
             'user' => $request->user(),
         ]);
+    }
+    public function users(Request $request){
+        $users = User::all();
+        return response()->json([
+            'users' => $users,
+        ]);
+    }
+    public function updateuser(Request $request, $id){
+        $this->validate($request, ['name' => 'required',
+        'email' => 'required|string|email',]);
+        $user = User::findOrFail($id);
+        $user->name = $request['name'];
+        $user->email = $request['email'];
+        $user->save();
+        return response()->json(['message' => 'User Updated']);
+    }
+    public function updatepass(Request $request, $id){
+        $request->validate([
+            'password' => 'required|string|confirmed',
+        ]);
+        $user = User::findOrFail($id);
+        $user->password = bcrypt($request['password']);
+        $user->save();
+        return response()->json(['message' => 'Password updated']);
     }
 }

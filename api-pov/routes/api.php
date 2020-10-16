@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'auth'], function(){
     Route::post('login', [AuthController::class, 'login']);
     Route::post('signup', [AuthController::class, 'signup']);
+    Route::get('users', [AuthController::class, 'users']);
+    Route::put('updateuser/{id}', [AuthController::class, 'updateuser']);
+    Route::put('updatepass/{id}', [AuthController::class, 'updatepass']);
     Route::group(['middleware' => 'auth:api'], function(){
         Route::get('logout', [AuthController::class, 'logout']);
         Route::get('user', [AuthController::class, 'user']);
