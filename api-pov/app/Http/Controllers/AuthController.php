@@ -84,4 +84,10 @@ class AuthController extends Controller
         $user->save();
         return response()->json(['message' => 'Password updated']);
     }
+
+    public function deleteuser(Request $request, $id){
+        $user = User::findOrFail($id);
+        $user->delete();
+        return response()->json(['message' => 'User deleted']);
+    }
 }
