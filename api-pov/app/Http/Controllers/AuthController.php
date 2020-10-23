@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
 use Dotenv\Validator;
@@ -16,12 +17,25 @@ class AuthController extends Controller
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string|confirmed',
         ]);
-        $user = new User([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-        ]);
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        //[
+        //    'name' => $request->name,
+        //    'email' => $request->email,
+        //    'password' => bcrypt($request->password),
+        //];
+        
         $user->save();
+        $role = new Role();
+        $role->user_id = $user->id;
+        $role->name = 'Student';
+        //[
+          //  'user_id' => $user->id,
+            //'name' => 'Student',
+        //];
+        $role->save();
         return response()->json([
             'message' => 'User created'
         ], 201);
@@ -89,5 +103,11 @@ class AuthController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
         return response()->json(['message' => 'User deleted']);
+    }
+    public function roles(Request $request){
+        $roles = Role::all();
+        return response()->json([
+            'roles' => $roles,
+        ]);
     }
 }

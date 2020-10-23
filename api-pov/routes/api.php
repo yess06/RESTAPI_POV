@@ -18,6 +18,7 @@ Route::group(['prefix' => 'auth'], function(){
     Route::post('login', [AuthController::class, 'login']);
     Route::post('signup', [AuthController::class, 'signup']);
     Route::get('users', [AuthController::class, 'users']);
+    Route::get('roles', [AuthController::class, 'roles']);
     Route::put('updateuser/{id}', [AuthController::class, 'updateuser']);
     Route::put('updatepass/{id}', [AuthController::class, 'updatepass']);
     Route::delete('deleteuser/{id}', [AuthController::class, 'deleteuser']);
