@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\User;
 use App\Models\Activity;
 use App\Models\Time;
 use App\Models\Lesson;
 use App\Models\Answer;
 use App\Models\Qualification_activity;
 use App\Models\Qualification_time;
+use App\Models\Qualification_lesson;
 use Illuminate\Http\Request;
 
 class Lesson1Controller extends Controller
@@ -95,6 +97,21 @@ class Lesson1Controller extends Controller
             'message' => 'ok',
         ]);
     }
+    function add_qualification_lesson(Request $request){
+        $request->validate([
+            'user_id' => 'required|string',
+            'lesson_id'=> 'required|string',
+            'qualification' => 'required|string',
+        ]);
+        $qualification = new Qualification_lesson();
+        $qualification->user_id = $request->user_id;
+        $qualification->lesson_id = $request->lesson_id;
+        $qualification->qualification = $request->qualification;
+        $qualification->save();
+        return response()->json([
+            'message' => 'ok',
+        ]);
+     }
     
     function show_qualification_activity(Request $request){
         $qualifications = Qualification_activity::all();
@@ -103,6 +120,20 @@ class Lesson1Controller extends Controller
     }
     function show_qualification_time(Request $request){
         $qualifications = Qualification_time::all();
+        return response()->json([
+            'qualifications' => $qualifications,
+        ]);
+    }
+    function show_qualification_lesson(Request $request){
+        $qualifications = Qualification_lesson::all();
+        return response()->json([
+             'qualifications' => $qualifications,
+        ]);
+    }
+    function show_all_qualifications_lesson(Request $request){
+        $qualifications = User::join("qualification_lessons", "qualification_lessons.user_id", "=", "users.id")
+        ->select("users.name", "users.email", "qualification_lessons.lesson_id", "qualification_lessons.qualification")
+        ->get();
         return response()->json([
             'qualifications' => $qualifications,
         ]);

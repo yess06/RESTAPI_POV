@@ -32,7 +32,9 @@ Route::group(['prefix' => 'auth'], function(){
         Route::get('user', [AuthController::class, 'user']);
         Route::post('add_qualification_activity',[Lesson1Controller::class, 'add_qualification_activity']);
         Route::post('add_qualification_time',[Lesson1Controller::class, 'add_qualification_time']);
+        Route::post('add_qualification_lesson', [Lesson1Controller::class, 'add_qualification_lesson']);
         Route::get('show_qualification_time',[Lesson1Controller::class, 'show_qualification_time']);
         Route::get('show_qualification_activity',[Lesson1Controller::class, 'show_qualification_activity']);
+        Route::get('show_qualification_lesson', [Lesson1Controller::class, 'show_all_qualifications_lesson']);
     });
 });
