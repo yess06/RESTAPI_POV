@@ -132,7 +132,7 @@ class Lesson1Controller extends Controller
     }
     function show_all_qualifications_lesson(Request $request){
         $qualifications = User::join("qualification_lessons", "qualification_lessons.user_id", "=", "users.id")
-        ->select("users.name", "users.email", "qualification_lessons.lesson_id", "qualification_lessons.qualification")
+        ->select("users.id","users.name", "users.email", "qualification_lessons.lesson_id", "qualification_lessons.qualification")
         ->get();
         return response()->json([
             'qualifications' => $qualifications,

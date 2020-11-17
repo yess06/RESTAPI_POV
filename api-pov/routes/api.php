@@ -20,14 +20,14 @@ Route::group(['prefix' => 'auth'], function(){
     Route::post('signup', [AuthController::class, 'signup']);
     Route::get('users', [AuthController::class, 'users']);
     Route::get('roles', [AuthController::class, 'roles']);
-    Route::put('updateuser/{id}', [AuthController::class, 'updateuser']);
-    Route::put('updatepass/{id}', [AuthController::class, 'updatepass']);
-    Route::delete('deleteuser/{id}', [AuthController::class, 'deleteuser']);
     Route::post('add_answer', [Lesson1Controller::class, 'add_answer']);
     Route::post('add_lesson', [Lesson1Controller::class, 'add_lesson']);
     Route::post('add_time', [Lesson1Controller::class, 'add_time']);
     Route::post('add_activity', [Lesson1Controller::class, 'add_activity']);
     Route::group(['middleware' => 'auth:api'], function(){
+        Route::put('updateuser/{id}', [AuthController::class, 'updateuser']);
+        Route::put('updatepass/{id}', [AuthController::class, 'updatepass']);
+        Route::delete('deleteuser/{id}', [AuthController::class, 'deleteuser']);
         Route::get('logout', [AuthController::class, 'logout']);
         Route::get('user', [AuthController::class, 'user']);
         Route::post('add_qualification_activity',[Lesson1Controller::class, 'add_qualification_activity']);
