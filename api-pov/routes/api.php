@@ -34,6 +34,7 @@ Route::group(['prefix' => 'auth'], function(){
         Route::post('add_qualification_time',[Lesson1Controller::class, 'add_qualification_time']);
         Route::post('add_qualification_lesson', [Lesson1Controller::class, 'add_qualification_lesson']);
         Route::get('show_qualification_time',[Lesson1Controller::class, 'show_qualification_time']);
+        Route::get('show_qualification_time_all',[Lesson1Controller::class, 'show_qualification_time_all']);
         Route::get('show_qualification_activity',[Lesson1Controller::class, 'show_qualification_activity']);
         Route::get('show_qualification_lesson', [Lesson1Controller::class, 'show_all_qualifications_lesson']);
     });

@@ -124,6 +124,14 @@ class Lesson1Controller extends Controller
             'qualifications' => $qualifications,
         ]);
     }
+    function show_qualification_time_all(Request $request){
+        $qualifications = Time::join("qualification_times", "qualification_times.time_id", "=", "times.id")
+        ->select("qualification_times.user_id","qualification_times.lesson_id","qualification_times.time_id", "qualification_times.qualification", "times.verbalTense")
+        ->get();
+        return response()->json([
+            'qualifications' => $qualifications,
+        ]);
+    }
     function show_qualification_lesson(Request $request){
         $qualifications = Qualification_lesson::all();
         return response()->json([
