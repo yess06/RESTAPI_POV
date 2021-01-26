@@ -16,13 +16,21 @@ class CreateQualificationActivitiesTable extends Migration
         Schema::create('qualification_activities', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->unsignedInteger('lesson_id');
-            $table->foreign('lesson_id')->references('id')->on('lessons');
+            $table->foreign('lesson_id')->references('id')->on('lessons')
+            ->onUpdate('cascade')
+            ->onUpdate('cascade');
             $table->unsignedInteger('time_id');
-            $table->foreign('time_id')->references('id')->on('times');
+            $table->foreign('time_id')->references('id')->on('times')
+            ->onUpdate('cascade')
+            ->onUpdate('cascade');
             $table->unsignedInteger('activity_id');
-            $table->foreign('activity_id')->references('id')->on('activities');
+            $table->foreign('activity_id')->references('id')->on('activities')
+            ->onUpdate('cascade')
+            ->onUpdate('cascade');
             $table->string('qualification');
             $table->timestamps();
         });

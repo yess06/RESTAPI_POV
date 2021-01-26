@@ -40,6 +40,35 @@ class AuthController extends Controller
             'message' => 'User created'
         ], 201);
     }
+    public function signup_teacher(Request $request){
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|string|email|unique:users',
+            'password' => 'required|string|confirmed',
+        ]);
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        //[
+        //    'name' => $request->name,
+        //    'email' => $request->email,
+        //    'password' => bcrypt($request->password),
+        //];
+        
+        $user->save();
+        $role = new Role();
+        $role->user_id = $user->id;
+        $role->name = 'Teacher';
+        //[
+          //  'user_id' => $user->id,
+            //'name' => 'Student',
+        //];
+        $role->save();
+        return response()->json([
+            'message' => 'User created'
+        ], 201);
+    }
     public function login(Request $request){
         $request->validate([
             'email' => 'required|string|email',

@@ -13,21 +13,6 @@ use Illuminate\Http\Request;
 
 class Lesson1Controller extends Controller
 {
-    //
-    function add_answer(Request $request){
-        $request->validate([
-            'lesson_id' => 'required|string',
-            'time_id' => 'required|string',
-            'activity_id' => 'required|string',
-            'answer' => 'required|string',
-        ]);
-        $answer = new Answer();
-        $answer->lesson_id = $request->lesson_id;
-        $answer->time_id = $request->time_id;
-        $answer->activity_id = $request->activity_id;
-        $answer->answer = $request->answer;
-        $answer->save();
-    }
     function add_lesson(Request $request){
         $request->validate([
             'lesson' => 'required|string',
@@ -38,6 +23,21 @@ class Lesson1Controller extends Controller
         return response([
             'message' => 'ok',
         ]);
+    }
+    function show_lesson(){
+        $lessons = Lesson::all();
+        return response()->json([
+            'Lessons' => $lessons,]);
+    }
+    function show_activity(){
+        $activities = Activity::all();
+        return response()->json([
+            'Activities' => $activities,]);
+    }
+    function show_time(){
+        $times = Time::all();
+        return response()->json([
+            'Times' => $times,]);
     }
     function add_time(Request $request){
         $request->validate([
